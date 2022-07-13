@@ -1,7 +1,12 @@
 import { Response, Request, NextFunction} from "express";
 
-export async function errorHandler(error, req: Request, res: Response, next: NextFunction) {
-    console.log(`error on errorHandler, ${error.message}`);
+interface CustomErrors {
+    message: string;
+    type: string;
+}
+
+export async function errorHandler(error: CustomErrors, req: Request, res: Response, next: NextFunction) {
+    console.log(`error on errorHandler, ${error}`);
     if (error.type === "not_found") {
         return res.status(404).send(error.message)
     }
